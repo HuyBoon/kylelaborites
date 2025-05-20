@@ -1,24 +1,42 @@
 {
-  "name": "kylelaboriteupdate",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.2"
-  },
-  "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
-  }
+	"name": "kylelaboriteupdate",
+	"version": "0.1.0",
+	"private": true,
+	"author": {
+		"name": "huybooncode.",
+		"url": "https://huyboon-portfolio.vercel.app"
+	},
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@auth/mongodb-adapter": "^3.9.1",
+		"@tinymce/tinymce-react": "^6.1.0",
+		"aos": "^2.3.4",
+		"bcrypt": "^6.0.0",
+		"lucide-react": "^0.511.0",
+		"mongodb": "^6.16.0",
+		"mongoose": "^8.15.0",
+		"next": "15.3.2",
+		"next-auth": "^4.24.11",
+		"next-cloudinary": "^6.16.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"slugify": "^1.6.6",
+		"sonner": "^2.0.3",
+		"swiper": "^11.2.7"
+	},
+	"devDependencies": {
+		"@tailwindcss/postcss": "^4",
+		"@types/aos": "^3.0.7",
+		"@types/bcrypt": "^5.0.2",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"tailwindcss": "^4",
+		"typescript": "^5"
+	}
 }
