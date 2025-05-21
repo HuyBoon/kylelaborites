@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { generateSlug } from "@/libs/generateSlug";
 import {
 	uploadBlogImageToCloudinary,

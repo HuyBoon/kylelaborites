@@ -1,6 +1,7 @@
 // components/AddUser.tsx
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+
 
 const AddUser = () => {
 	const [name, setName] = useState("");

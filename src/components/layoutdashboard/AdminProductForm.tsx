@@ -8,9 +8,7 @@ import { generateSlug } from "@/libs/generateSlug";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { toast } from "sonner";
 
 interface ProductFormProps {
 	_id?: string;
@@ -275,10 +273,12 @@ const AdminProductForm: React.FC<ProductFormProps> = ({
 					<label className="block text-sm font-medium text-gray-700">
 						Giới thiệu sản phẩm:
 					</label>
-					<ReactQuill
-						theme="snow"
+					<textarea
+						name="description"
+						placeholder="Mô tả ngắn về sản phẩm"
+						cols={30}
 						value={description}
-						onChange={handleChangeDescription}
+						onChange={(e) => setDescription(e.target.value)}
 						className="mt-1 block w-full min-h-[300px] p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
 					/>
 				</div>
@@ -388,10 +388,12 @@ const AdminProductForm: React.FC<ProductFormProps> = ({
 					<label className="block text-sm font-medium text-gray-700">
 						Mô tả sản phẩm:
 					</label>
-					<ReactQuill
-						theme="snow"
+					<textarea
+						name="details"
+						placeholder="Mô tả chi tiết về sản phẩm"
+						cols={30}
 						value={details}
-						onChange={handleChangeDetails}
+						onChange={(e) => handleChangeDetails(e.target.value)}
 						className="mt-1 block w-full min-h-[300px] p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
 					/>
 				</div>
