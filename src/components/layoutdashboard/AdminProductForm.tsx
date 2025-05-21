@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import TextEditor from "../(product)/TextEditor";
 
 interface ProductFormProps {
 	_id?: string;
@@ -273,13 +274,10 @@ const AdminProductForm: React.FC<ProductFormProps> = ({
 					<label className="block text-sm font-medium text-gray-700">
 						Giới thiệu sản phẩm:
 					</label>
-					<textarea
-						name="description"
-						placeholder="Mô tả ngắn về sản phẩm"
-						cols={30}
+					<TextEditor
 						value={description}
-						onChange={(e) => setDescription(e.target.value)}
-						className="mt-1 block w-full min-h-[300px] p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+						onChange={handleChangeDescription}
+						height={300}
 					/>
 				</div>
 				<div>
@@ -388,13 +386,10 @@ const AdminProductForm: React.FC<ProductFormProps> = ({
 					<label className="block text-sm font-medium text-gray-700">
 						Mô tả sản phẩm:
 					</label>
-					<textarea
-						name="details"
-						placeholder="Mô tả chi tiết về sản phẩm"
-						cols={30}
+					<TextEditor
 						value={details}
-						onChange={(e) => handleChangeDetails(e.target.value)}
-						className="mt-1 block w-full min-h-[300px] p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+						onChange={handleChangeDetails}
+						height={600}
 					/>
 				</div>
 				<div>

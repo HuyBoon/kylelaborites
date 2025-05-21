@@ -45,9 +45,7 @@ const ProductItemDetail = ({
 				<span className={theme === "dark" ? "text-light" : ""}>/</span>
 				<h2
 					onClick={handleToProduct}
-					className={`cursor-pointer font-bold text-lg ${
-						theme === "dark" ? "text-light" : ""
-					}`}
+					className="cursor-pointer font-bold dark:text-light text-lg"
 				>
 					Products
 				</h2>
@@ -110,19 +108,11 @@ const ProductItemDetail = ({
 				</div>
 
 				{/* Product Details */}
-				<div className="w-full md:w-1/2">
-					<h1
-						className={`text-3xl font-bold mb-4 ${
-							theme === "dark" ? "text-light" : ""
-						}`}
-					>
+				<div className="w-full md:w-1/2 px-4">
+					<h1 className="text-3xl dark:text-light font-bold mb-4">
 						{productInfo.name}
 					</h1>
-					<p
-						className={`text-lg ${
-							theme === "dark" ? "text-light" : "text-gray-600"
-						} mb-4`}
-					>
+					<p className="text-xl dark:text-light mb-2">
 						Danh mục: {productInfo.category}
 					</p>
 
@@ -149,9 +139,7 @@ const ProductItemDetail = ({
 
 					{/* Description */}
 					<div
-						className={`hidden md:block mt-2 prose prose-indigo ${
-							theme === "dark" ? "dark-quill-content" : "text-gray-600"
-						}`}
+						className="hidden md:block mt-2 prose prose-indigo dark:text-light "
 						dangerouslySetInnerHTML={{ __html: productInfo.description }}
 					></div>
 
@@ -173,18 +161,12 @@ const ProductItemDetail = ({
 			</div>
 
 			{/* Product Details Section */}
-			<div className="mt-12 w-full">
-				<h1
-					className={`text-3xl font-bold mb-4 ${
-						theme === "dark" ? "text-light" : ""
-					}`}
-				>
+			<div className="mt-12 w-full px-4">
+				<h1 className="text-2xl font-bold mb-4 dark:text-light">
 					Mô tả sản phẩm
 				</h1>
 				<div
-					className={`mt-2 text-justify ${
-						theme === "dark" ? "dark-quill-content" : "text-gray-600"
-					}`}
+					className="mt-2 text-justify prose prose-indigo dark:prose-invert dark:text-light"
 					dangerouslySetInnerHTML={{ __html: productInfo.details }}
 				></div>
 			</div>

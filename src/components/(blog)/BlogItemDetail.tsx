@@ -28,18 +28,16 @@ const BlogItemDetail = ({
 	};
 
 	return (
-		<div className="container mx-auto py-8 lg:px-20">
+		<div className="container mx-auto px-4 py-8 lg:px-20">
 			<div className="flex items-center gap-2 pb-4">
 				<House
 					onClick={handleOnClick}
-					className={`cursor-pointer ${theme === "dark" ? "text-light" : ""}`}
+					className="cursor-pointer dark:text-light"
 				/>
 				<span className={theme === "dark" ? "text-light" : ""}>/</span>
 				<h2
 					onClick={handleToBlog}
-					className={`cursor-pointer font-bold text-lg ${
-						theme === "dark" ? "text-light" : ""
-					}`}
+					className="cursor-pointer font-bold text-lg dark:text-light"
 				>
 					Blog
 				</h2>
@@ -53,7 +51,7 @@ const BlogItemDetail = ({
 
 			{/* Blog Description */}
 			{blogs.description && (
-				<div className="prose dark:prose-invert max-w-4xl mx-auto text-lg mb-8">
+				<div className="prose dark:prose-invert max-w-4xl mx-auto text-lg mb-8 dark:text-light">
 					{blogs.description}
 				</div>
 			)}
@@ -72,7 +70,7 @@ const BlogItemDetail = ({
 			)}
 
 			{/* Blog Content */}
-			<div className="prose dark:prose-invert max-w-4xl mx-auto text-lg">
+			<div className="prose dark:prose-invert dark:text-light max-w-4xl mx-auto text-lg">
 				<div dangerouslySetInnerHTML={{ __html: blogs.content }} />
 			</div>
 

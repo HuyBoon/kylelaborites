@@ -125,7 +125,7 @@ const Contact = () => {
 								<div className="flex-1">
 									<label
 										htmlFor="name"
-										className="block text-gray-700 dark:text-gray-300 font-medium"
+										className="block  dark:text-light font-medium"
 									>
 										Tên của bạn
 									</label>
@@ -142,7 +142,7 @@ const Contact = () => {
 								<div className="flex-1">
 									<label
 										htmlFor="phone"
-										className="block text-gray-700 dark:text-gray-300 font-medium"
+										className="block dark:text-light font-medium"
 									>
 										Số điện thoại
 									</label>
@@ -161,7 +161,7 @@ const Contact = () => {
 							<div>
 								<label
 									htmlFor="email"
-									className="block text-gray-700 dark:text-gray-300 font-medium"
+									className="block  dark:text-light  font-medium"
 								>
 									Email
 								</label>
@@ -179,7 +179,7 @@ const Contact = () => {
 							<div>
 								<label
 									htmlFor="message"
-									className="block text-gray-700 dark:text-gray-300 font-medium"
+									className="block dark:text-light  font-medium"
 								>
 									Lời nhắn
 								</label>
