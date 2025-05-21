@@ -3,8 +3,6 @@ import BlogList from "@/components/(blog)/BlogList";
 
 export const dynamic = "force-dynamic";
 
-const siteUrl = process.env.NEXT_PUBLIC_API_URL || "https://kyleskincare.vn";
-
 export const metadata = {
 	title: "Blog | KYLE Laboratoires Vietnam",
 	description:
@@ -15,12 +13,12 @@ export const metadata = {
 		title: "Blog | KYLE Laboratoires Vietnam",
 		description:
 			"Bài viết chia sẻ kiến thức làm đẹp và chăm sóc da hiệu quả từ KYLE.",
-		url: `${siteUrl}/blog`,
+		url: `https://kyleskincare.vn/blog`,
 		siteName: "KYLE Laboratoires Vietnam",
 		type: "website",
 		images: [
 			{
-				url: `${siteUrl}/blog.jpg`, // ảnh trong public/
+				url: `/blog.jpg`, // ảnh trong public/
 				width: 1200,
 				height: 630,
 				alt: "Blog KYLE Laboratories",
@@ -31,7 +29,7 @@ export const metadata = {
 		card: "summary_large_image",
 		title: "Blog | KYLE Laboratoires Vietnam",
 		description: "Tổng hợp những chia sẻ và mẹo skincare từ KYLE Laboratories.",
-		images: [`${siteUrl}/blog.jpg`],
+		images: [`/blog.jpg`],
 	},
 };
 

@@ -24,7 +24,10 @@ async function fetchBlogBySlug(slug: string): Promise<BlogItemProps | null> {
 async function fetchRelatedBlogs(tag: string): Promise<BlogItemProps[]> {
 	try {
 		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/api/blog?tags=${tag}&limit=3`
+			`${process.env.NEXT_PUBLIC_API_URL}/api/blog?tags=${tag}&limit=3`,
+			{
+				cache: "no-store",
+			}
 		);
 		const data = await res.json();
 		return data.success ? data.blogs : [];

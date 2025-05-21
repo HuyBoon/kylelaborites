@@ -10,7 +10,9 @@ async function fetchProductBySlug(
 	try {
 		const res = await fetch(
 			`${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`,
-			{ next: { revalidate: 60 } }
+			{
+				cache: "no-store",
+			}
 		);
 		const response = await res.json();
 		if (response.success) {
