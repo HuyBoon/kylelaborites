@@ -1,9 +1,7 @@
 // PRODUCTS
 export async function getProducts(page = 1, limit = 6) {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?page=${page}&limit=${limit}`
-
-        );
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?page=${page}&limit=${limit}`)
 
         // Kiểm tra xem phản hồi có thành công không
         if (!response.ok) {
