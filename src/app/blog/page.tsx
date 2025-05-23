@@ -1,8 +1,20 @@
-import { getBlogs } from "@/libs/fetchData";
+import React from "react";
 import BlogList from "@/components/(blog)/BlogList";
 
-export const dynamic = "force-dynamic";
+// Blog interface (based on provided BlogItemProps)
+interface IBlog {
+	_id: string;
+	title: string;
+	slug: string;
+	tags: string[];
+	description: string;
+	thumbnail: string;
+	content: string;
+}
 
+const siteUrl = process.env.NEXT_PUBLIC_API_URL || "https://kyleskincare.vn";
+
+// Metadata for SEO
 export const metadata = {
 	title: "Blog | KYLE Laboratoires Vietnam",
 	description:
@@ -13,12 +25,12 @@ export const metadata = {
 		title: "Blog | KYLE Laboratoires Vietnam",
 		description:
 			"Bài viết chia sẻ kiến thức làm đẹp và chăm sóc da hiệu quả từ KYLE.",
-		url: `https://kyleskincare.vn/blog`,
+		url: `${siteUrl}/blog`,
 		siteName: "KYLE Laboratoires Vietnam",
 		type: "website",
 		images: [
 			{
-				url: `/blog.jpg`, // ảnh trong public/
+				url: `${siteUrl}/blog.jpg`,
 				width: 1200,
 				height: 630,
 				alt: "Blog KYLE Laboratories",
@@ -29,15 +41,89 @@ export const metadata = {
 		card: "summary_large_image",
 		title: "Blog | KYLE Laboratoires Vietnam",
 		description: "Tổng hợp những chia sẻ và mẹo skincare từ KYLE Laboratories.",
-		images: [`/blog.jpg`],
+		images: [`${siteUrl}/blog.jpg`],
 	},
 };
 
-export default async function Blog() {
-	const currentPage = 1;
-	const blogPerPage = 6;
+// Pagination interface
+interface Pagination {
+	totalItems: number;
+	totalPages: number;
+	currentPage: number;
+	pageSize: number;
+}
 
-	const { blogs, totalBlogs } = await getBlogs(currentPage, blogPerPage);
+// Fetch result interface
+interface FetchResult {
+	blogs: IBlog[];
+	pagination: Pagination;
+	error: string | null;
+}
+
+// Fetch blogs server-side
+async function fetchBlogs(
+	page: number = 1,
+	limit: number = 6
+): Promise<FetchResult> {
+	try {
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/blog?page=${page}&limit=${limit}`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				cache: "no-store",
+			}
+		);
+
+		if (!response.ok) {
+			const errorData = await response.json();
+			throw new Error(
+				errorData.message || `Failed to fetch blogs: ${response.status}`
+			);
+		}
+
+		const data: { blogs: IBlog[]; pagination: Pagination } =
+			await response.json();
+
+		return {
+			blogs: data.blogs,
+			pagination: data.pagination,
+			error: null,
+		};
+	} catch (err) {
+		const errorMessage =
+			err instanceof Error ? err.message : "An unexpected error occurred";
+		console.error("Error in fetchBlogs:", errorMessage, err);
+		return {
+			blogs: [],
+			pagination: {
+				totalItems: 0,
+				totalPages: 0,
+				currentPage: 1,
+				pageSize: limit,
+			},
+			error: errorMessage,
+		};
+	}
+}
+
+export default async function Blog({
+	searchParams,
+}: {
+	searchParams: Promise<{ page?: string }>;
+}) {
+	const { page: pageParam } = await searchParams;
+	const page = parseInt(pageParam || "1", 10);
+	const blogsPerPage = 6;
+
+	const { blogs, pagination, error } = await fetchBlogs(page, blogsPerPage);
+
+	// User-friendly error message
+	const displayError = error
+		? "Không thể tải danh sách bài viết. Vui lòng thử lại sau."
+		: null;
 
 	return (
 		<div className="bg-light min-h-screen py-8 px-4 lg:px-20 dark:bg-dark">
@@ -46,12 +132,11 @@ export default async function Blog() {
 					Bài viết hay từ Kyle
 				</h1>
 
-				{/* Blog List Component */}
 				<BlogList
 					initialBlogs={blogs}
-					totalBlogs={totalBlogs}
-					blogsPerPage={blogPerPage}
-					initialPage={currentPage}
+					initialPagination={pagination}
+					error={displayError}
+					currentPage={page}
 				/>
 			</div>
 		</div>

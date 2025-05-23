@@ -1,10 +1,10 @@
-import { getProducts } from "@/libs/fetchData";
+import React from "react";
 import ProductList from "@/components/(product)/ProductList";
-
-export const dynamic = "force-dynamic";
+import { ProductItemProps } from "@/types/productItem";
 
 const siteUrl = process.env.NEXT_PUBLIC_API_URL || "https://kyleskincare.vn";
 
+// Metadata for SEO
 export const metadata = {
 	title: "Sản Phẩm | KYLE Laboratoires - Mỹ Phẩm Chính Hãng",
 	description:
@@ -29,14 +29,88 @@ export const metadata = {
 	},
 };
 
-export default async function Products() {
-	const currentPage = 1;
+// Pagination interface
+interface Pagination {
+	totalItems: number;
+	totalPages: number;
+	currentPage: number;
+	pageSize: number;
+}
+
+// Fetch result interface
+interface FetchResult {
+	products: ProductItemProps[];
+	pagination: Pagination;
+	error: string | null;
+}
+
+// Fetch products server-side
+async function fetchProducts(
+	page: number = 1,
+	limit: number = 6
+): Promise<FetchResult> {
+	try {
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/products?page=${page}&limit=${limit}`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				cache: "no-store",
+			}
+		);
+
+		if (!response.ok) {
+			const errorData = await response.json();
+			throw new Error(
+				errorData.message || `Failed to fetch products: ${response.status}`
+			);
+		}
+
+		const data: { products: ProductItemProps[]; pagination: Pagination } =
+			await response.json();
+
+		return {
+			products: data.products,
+			pagination: data.pagination,
+			error: null,
+		};
+	} catch (err) {
+		const errorMessage =
+			err instanceof Error ? err.message : "An unexpected error occurred";
+		console.error("Error in fetchProducts:", errorMessage, err);
+		return {
+			products: [],
+			pagination: {
+				totalItems: 0,
+				totalPages: 0,
+				currentPage: 1,
+				pageSize: limit,
+			},
+			error: errorMessage,
+		};
+	}
+}
+
+export default async function Products({
+	searchParams,
+}: {
+	searchParams: Promise<{ page?: string }>;
+}) {
+	const { page: pageParam } = await searchParams;
+	const page = parseInt(pageParam || "1", 10);
 	const productsPerPage = 6;
 
-	const { products, totalProducts } = await getProducts(
-		currentPage,
+	const { products, pagination, error } = await fetchProducts(
+		page,
 		productsPerPage
 	);
+
+	// User-friendly error message
+	const displayError = error
+		? "Không thể tải danh sách sản phẩm. Vui lòng thử lại sau."
+		: null;
 
 	return (
 		<main
@@ -56,9 +130,9 @@ export default async function Products() {
 
 				<ProductList
 					initialProducts={products}
-					totalProducts={totalProducts}
-					productsPerPage={productsPerPage}
-					initialPage={currentPage}
+					initialPagination={pagination}
+					error={displayError}
+					currentPage={page}
 				/>
 			</div>
 		</main>
